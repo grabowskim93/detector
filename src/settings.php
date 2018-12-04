@@ -19,8 +19,8 @@ return [
         "db" => [
             "host" => "locahost",
             "dbname" => "detector",
-            "user" => "root",
-            "pass" => "maja"
+            "user" => "",
+            "pass" => ""
         ],
 
         'view' => [
