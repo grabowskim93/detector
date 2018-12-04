@@ -1,0 +1,65 @@
+#include <ESP8266WiFi.h>
+
+#include <WiFiClient.h>
+
+#include <DNSServer.h>
+#include <ESP8266WebServer.h>
+#include <WiFiManager.h>
+
+#include "DHT.h"
+
+define DHTPIN 4     // what digital pin the DHT11 is conected to
+define DHTTYPE DHT11 
+DHT dht(DHTPIN, DHTTYPE);
+
+ESP8266WebServer server(80);
+
+void sendData();
+
+void setup(void)
+{  
+  WiFiManager wifi;
+  
+  wifi.setTimeout(60);
+  
+  if (!wifi.autoConnect("Temp Access Poin")) {
+    delay(300);
+    //go to deep sleep and try again
+    ESP.deepSleep(5 * 60 * 1000000);
+    delay(1000);
+  }
+}
+
+void loop(void)
+{
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (!isnan(h) || !isnan(t)) {         
+    sendData(t, h);      
+  }
+
+  ESP.deepSleep(5 * 60 * 1000 * 1000);
+  delay(500);
+}
+
+
+void sendData(fload t, float h) {
+  server.begin();
+
+  client.println("HTTP/1.1 200 OK");
+  client.println("Content-Type: text/html");
+  client.println("<!DOCTYPE html>");
+  client.println("<html xmlns='http://www.w3.org/1999/xhtml'>");
+  client.println("<head>\n<meta charset='UTF-8'>");
+  client.println("<title>Response content:</title>");
+  client.println("</head>\n<body>");
+  client.println("<h1>ESP temp Sensor:</h1>");
+  client.print("<p>Temp: </p>");
+  client.print((float)t, 2);
+  client.println(" C </p>");
+  client.print("<p>Humidity: </p>");
+  client.print((float)h, 2);
+  client.print(" % </p>");
+  client.print("</body>\n</html>");
+}

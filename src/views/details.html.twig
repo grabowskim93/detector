@@ -11,21 +11,13 @@
             src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous"></script>
-    {#<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
-    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>#}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
-
-
+    
     <link rel="stylesheet"
           href="/detector/bower_components/chartist/dist/chartist.min.css">
     <script src="/detector/bower_components/chartist/dist/chartist.min.js"></script>
-
-    {#<script#}
-            {#src="https://code.jquery.com/jquery-3.3.1.min.js"#}
-            {#integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="#}
-            {#crossorigin="anonymous"></script>#}
 
     <style>
         body {
@@ -153,11 +145,9 @@
 
         <div class="ct-chart ct-perfect" style="width: 100%;"></div>
 
-        {% if ip_address == '192.168.43.2361' %}
+        {% if ip_address == '192.168.43.236' %}
             <script>
                 var url = "/detector/public/data/{{ mac_address }}";
-
-                var data = [];
 
                 var options = {
                     fullWidth: false,
@@ -167,14 +157,6 @@
                     },
                     low: 20
                 };
-
-                // var resp = $.ajax({
-                //     type: 'POST',
-                //     url: url,
-                //     dataType: 'json'
-                // }).done(function(response) {
-                //     console.log(response);
-                // });
                 $(document).ready(function(){
                     var data = [];
                     $.ajax({
@@ -186,34 +168,13 @@
                         data = {"labels":JSONObject.labels, "series":[JSONObject.series]};
                         new Chartist.Line('.ct-chart', data, options);
                     });
-
-
-                    // As options we currently only set a static size of 300x200 px
-
-
-                    // In the global name space Chartist we call the Line function to initialize a line chart. As a first parameter we pass in a selector where we would like to get our chart created. Second parameter is the actual data object and as a third parameter we pass in our options
-                    // $.ajax({ url: url,
-                    //     context: document.body,
-                    //     success: function(){
-                    //         alert("done");
-                    //     }});
                 });
-
+                //debug
                 // console.log(data);
-
-                // var data = {
-                //     // A labels array that can contain any sort of values
-                //     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-                //     // Our series array that contains series objects or in this case series data arrays
-                //     series: [
-                //         [5, 2, 4, 2, 0]
-                //     ]
-                // };
-
-
             </script>
         {% else %}
             <script>
+                //display default data
                 var chart = new Chartist.Line('.ct-chart', {
                     labels: ['7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00',
                         '19:00', '20:00', '21:00', '22:00'],
