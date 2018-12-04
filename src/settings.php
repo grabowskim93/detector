@@ -17,10 +17,13 @@ return [
         ],
 
         "db" => [
-            "host" => "locahost",
-            "dbname" => "detector",
-            "user" => "",
-            "pass" => ""
+            "driver" => "mysql",
+            "host" => "localhost",
+            "database" => "detector",
+            "username" => "",
+            "password" => "",
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
         ],
 
         'view' => [

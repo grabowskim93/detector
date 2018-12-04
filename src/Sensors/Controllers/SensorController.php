@@ -108,9 +108,10 @@ class SensorController extends Controller
         $sensor->save();
 
         $sensor = $sensor->toArray();
-//        $sensor['response'] = file_get_contents('http://' . $params['ip_address']);
-        $sensor['response'] = '<h1>ESP temp Sensor:</h1>
-<p> Temp: 24 C</p>';
+        $sensor['response'] = file_get_contents('http://' . $params['ip_address']);
+        //hardcoded test data
+//        $sensor['response'] = '<h1>ESP temp Sensor:</h1>
+//<p> Temp: 24 C</p>';
 
         return $this->render('details.html.twig', $sensor);
     }
@@ -133,13 +134,11 @@ class SensorController extends Controller
 
         $sensor = Sensor::find($id)->toArray();
 
-        if ($sensor['ip_address'] === '192.168.43.2362') {
-            $sensor['response'] = file_get_contents('http://' . $sensor['ip_address']);
-        } else {
-            $sensor['response'] = 'TEST';
-            $sensor['response'] = '<h1>ESP temp Sensor:</h1>
-<p> Temp: 24 C</p>';
-        }
+        $sensor['response'] = file_get_contents('http://' . $sensor['ip_address']);
+        //hardcoded test data
+//            $sensor['response'] = 'TEST';
+//            $sensor['response'] = '<h1>ESP temp Sensor:</h1>
+//<p> Temp: 24 C</p>';
 
         return $this->render('details.html.twig', $sensor);
     }
