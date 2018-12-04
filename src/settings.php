@@ -22,5 +22,10 @@ return [
             "user" => "root",
             "pass" => "maja"
         ],
+
+        'view' => [
+            // do not cache views
+            'cache' => false
+        ],
     ],
 ];
