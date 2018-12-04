@@ -25,7 +25,7 @@
 
 DROP TABLE IF EXISTS `sensor`;
 
-CREATE TABLE `sensor` (
+CREATE TABLE `sensors` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(255) DEFAULT NULL,
   `mac_address` varchar(255) DEFAULT NULL,
