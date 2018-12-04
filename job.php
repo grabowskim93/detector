@@ -6,9 +6,9 @@ $db = new PDO("mysql:host=localhost;dbname=detector", "root", "maja");
 $statement = $db->prepare('SELECT id, mac_address, ip_address FROM sensors');
 $result = $statement->execute();
 
-$ids = $statement->fetch(PDO::FETCH_ASSOC);
+$sensors = $statement->fetch(PDO::FETCH_ASSOC);
 
-foreach ($ids as $sensor) {
+foreach ($sensors as $sensor) {
     $content = file_get_contents('http://' . $sensor['ip_address']);
 
     $humRegex = '/Humidity.*: (.*)/m';
@@ -24,8 +24,8 @@ foreach ($ids as $sensor) {
 
     try {
         $statement2 = $db->prepare('INSERT INTO sensor_data (sensor_id, mac_address, temp, hum, created_at) VALUES (:sensor_id, :mac_address, :temp, :hum, :created_at)');
-        $statement2->bindParam(':sensor_id', $id['id']);
-        $statement2->bindParam(':mac_address', $id['mac_address']);
+        $statement2->bindParam(':sensor_id', $sensor['id']);
+        $statement2->bindParam(':mac_address', $sensor['mac_address']);
         $statement2->bindParam(':temp', $temp);
         $statement2->bindParam(':hum', $hum);
         $statement2->bindParam(':created_at', $createdAt);
